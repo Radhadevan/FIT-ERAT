@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>Fit Radhadevan</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#111827;font-family:Arial,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#f9fafb;padding-bottom:80px}
+header{background:#111827;color:white;padding:24px 18px 20px;border-radius:0 0 24px 24px}
+h1{margin:0;font-size:26px}header p{margin:6px 0 0;color:#cbd5e1}
+main{padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:white;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px #0000000b}
+.big{font-size:28px;font-weight:700}.muted{color:#6b7280;font-size:13px}.bar{height:9px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:10px 0}.fill{height:100%;background:#111827;border-radius:10px}
+button{border:0;border-radius:12px;padding:11px 14px;background:#111827;color:white;font-weight:600;cursor:pointer}
+input,select{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:11px;margin:6px 0 10px;background:white}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
+h2{font-size:18px;margin:4px 0 12px}.food{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:white;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:10px 4px;z-index:5}
+.nav button{background:transparent;color:#374151;font-size:12px;padding:8px}
+.nav button.active{color:#111827;font-weight:800}
+.section{display:none}.section.active{display:block}
+.badge{display:inline-block;padding:5px 9px;background:#eef2ff;border-radius:20px;font-size:12px}
+</style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fit Radhadevan">
+
+</head>
+<body>
+<div class="app">
+<header>
+<h1>Fit Radhadevan 💪</h1>
+<p>Your personal fitness dashboard</p>
+</header>
+
+<main>
+<section id="home" class="section active">
+<div class="grid">
+<div class="card"><div class="muted">Current weight</div><div class="big" id="weightView">97 kg</div></div>
+<div class="card"><div class="muted">Goal</div><div class="big">85 kg</div></div>
+</div>
+<div class="card">
+<h2>Goal progress</h2><div class="bar"><div class="fill" id="progress"></div></div>
+<div class="muted" id="progressText"></div>
+</div>
+<div class="grid">
+<div class="card"><div class="muted">Protein</div><div class="big" id="proteinView">0 g</div><span class="badge">Target 150 g</span></div>
+<div class="card"><div class="muted">Water</div><div class="big" id="waterView">0 L</div><span class="badge">Target 3 L</span></div>
+</div>
+<div class="card">
+<h2>Today's workout</h2>
+<p id="workoutText">Log your workout below.</p>
+<button onclick="show('workout')">Open workout</button>
+</div>
+</section>
+
+<section id="food" class="section">
+<div class="card"><h2>Log food</h2>
+<input id="foodName" placeholder="e.g. 2 eggs, chicken curry">
+<div class="row"><input id="foodProtein" type="number" placeholder="Protein (g)"><input id="foodCalories" type="number" placeholder="Calories"></div>
+<button onclick="addFood()">Add food</button>
+</div>
+<div class="card"><h2>Today's food</h2><div id="foodList"></div></div>
+</section>
+
+<section id="workout" class="section">
+<div class="card"><h2>Today's workout</h2>
+<select id="workoutSelect">
+<option>Upper Body</option><option>Push</option><option>Pull</option><option>Full Body</option><option>Cardio / Badminton</option><option>Rest / Recovery</option>
+</select>
+<input id="workoutMinutes" type="number" placeholder="Minutes">
+<button onclick="saveWorkout()">Save workout</button>
+<p id="workoutSaved"></p>
+</div>
+<div class="card"><h2>Workout note</h2><p class="muted">Choose exercises that feel comfortable and avoid movements that cause hip pain. This first version keeps the plan simple; we can add your full personalised routine next.</p></div>
+</section>
+
+<section id="progressTab" class="section">
+<div class="card"><h2>Update weight</h2>
+<input id="newWeight" type="number" step="0.1" placeholder="Current weight in kg">
+<button onclick="saveWeight()">Save weight</button>
+</div>
+<div class="card"><h2>Progress</h2><div id="history"></div></div>
+</section>
+
+<section id="budget" class="section">
+<div class="card"><h2>Food budget</h2>
+<p>Daily target: <b>₹250</b></p>
+<input id="spent" type="number" placeholder="Today's food spending">
+<button onclick="saveSpent()">Save spending</button>
+<p id="spentResult"></p>
+</div>
+</section>
+</main>
+
+<div class="nav">
+<button onclick="show('home')" id="n-home">Home</button>
+<button onclick="show('food')" id="n-food">Food</button>
+<button onclick="show('workout')" id="n-workout">Workout</button>
+<button onclick="show('progressTab')" id="n-progressTab">Progress</button>
+<button onclick="show('budget')" id="n-budget">Budget</button>
+</div>
+</div>
+
+<script>
+const KEY='fitRadhadevan';
+let d=JSON.parse(localStorage.getItem(KEY)||'{"weight":97,"foods":[],"history":[{"date":new Date().toLocaleDateString("en-IN"),weight:97}],"water":0,"workout":"","spent":0}');
+function save(){localStorage.setItem(KEY,JSON.stringify(d));render();}
+function show(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.getElementById('n-'+id).classList.add('active');render();}
+function addFood(){let n=document.getElementById('foodName').value.trim(),p=+document.getElementById('foodProtein').value||0,c=+document.getElementById('foodCalories').value||0;if(!n)return;d.foods.push({n,p,c});document.getElementById('foodName').value='';document.getElementById('foodProtein').value='';document.getElementById('foodCalories').value='';save();}
+function saveWeight(){let w=+document.getElementById('newWeight').value;if(w>0){d.weight=w;d.history.push({date:new Date().toLocaleDateString("en-IN"),weight:w});document.getElementById('newWeight').value='';save();}}
+function saveWorkout(){d.workout=document.getElementById('workoutSelect').value+' • '+(+document.getElementById('workoutMinutes').value||0)+' min';save();document.getElementById('workoutSaved').textContent='Saved ✓';}
+function saveSpent(){d.spent=+document.getElementById('spent').value||0;save();}
+function render(){
+let p=d.foods.reduce((a,x)=>a+x.p,0), progress=Math.max(0,Math.min(100,(100-d.weight)/15*100));
+document.getElementById('weightView').textContent=d.weight+' kg';document.getElementById('proteinView').textContent=p+' g';document.getElementById('waterView').textContent=d.water+' L';
+document.getElementById('progress').style.width=progress+'%';document.getElementById('progressText').textContent=Math.max(0,(d.weight-85)).toFixed(1)+' kg remaining to 85 kg';
+document.getElementById('workoutText').textContent=d.workout||'No workout logged yet.';
+document.getElementById('foodList').innerHTML=d.foods.length?d.foods.map((x,i)=>`<div class="food"><span>${x.n}</span><b>${x.p}g</b></div>`).join(''):'No food logged yet.';
+document.getElementById('history').innerHTML=d.history.slice().reverse().map(x=>`<div class="food"><span>${x.date}</span><b>${x.weight} kg</b></div>`).join('');
+document.getElementById('spentResult').textContent=d.spent?`₹${d.spent} spent • ₹${250-d.spent} ${250-d.spent>=0?'remaining':'over budget'}`:'';
+}
+render();show('home');
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Fit Radhadevan",
+  "short_name": "Fit Radhadevan",
+  "description": "Personal fitness dashboard for Radhadevan",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#111827",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
