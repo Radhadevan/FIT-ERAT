@@ -1,6 +1,6 @@
 {
-  "name": "Fit Radhadevan",
-  "short_name": "Fit Radhadevan",
+  "name": "DEQX FIT — Personal Fitness Tracker",
+  "short_name": "DEQX FIT",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -1,4 +1,4 @@
-const CACHE='fit-radhadevan-v5';
+const CACHE='deqx-fit-v6';
 const APP_SHELL=['./','./index.html','./manifest.json','./icon.svg'];
 
 self.addEventListener('install',event=>{
