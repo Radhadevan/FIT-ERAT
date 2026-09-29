@@ -30,6 +30,7 @@ h2{font-size:18px;margin:4px 0 12px}.food{display:flex;justify-content:space-bet
 .section{display:none}.section.active{display:block}.badge{display:inline-block;padding:5px 9px;background:#eef2ff;border-radius:20px;font-size:12px}
 .check{display:flex;align-items:center;gap:8px;margin:8px 0}.check input{width:auto;margin:0}
 .small{font-size:12px;color:#6b7280}.danger{color:#b91c1c}.success{color:#166534}
+.result{background:#f8fafc;border-radius:12px;padding:12px;margin:8px 0}.small{font-size:12px;color:#6b7280}
 </style>
 </head>
 <body>
@@ -63,15 +64,22 @@ h2{font-size:18px;margin:4px 0 12px}.food{display:flex;justify-content:space-bet
 </section>
 
 <section id="food" class="section">
-<div class="card"><h2>Quick add food</h2>
-<div class="quick">
-<button class="secondary" onclick="quickFood('Egg',6,78)">🥚 Egg</button>
-<button class="secondary" onclick="quickFood('Chicken 100g',27,165)">🍗 Chicken 100g</button>
-<button class="secondary" onclick="quickFood('Milk 250ml',8,150)">🥛 Milk 250ml</button>
-<button class="secondary" onclick="quickFood('Oats 50g',6,190)">🥣 Oats 50g</button>
+<div class="card"><h2>Smart food logging</h2>
+<input id="smartFood" placeholder="Try: 2 eggs, 3 appam, 100g chicken">
+<button onclick="smartAdd()">Calculate & add</button>
+<div id="smartResult"></div>
+<p class="small">Built-in estimates; actual portions and recipes can vary.</p>
 </div>
-<p class="small">These are quick estimates. You can still enter your own values below.</p>
-</div>
+<div class="card"><h2>Common foods</h2><div class="quick">
+<button class="secondary" onclick="smartFill('2 eggs')">🥚 2 eggs</button>
+<button class="secondary" onclick="smartFill('3 appam')">🥞 3 appam</button>
+<button class="secondary" onclick="smartFill('2 chapathi')">🫓 2 chapathi</button>
+<button class="secondary" onclick="smartFill('100g chicken')">🍗 100g chicken</button>
+<button class="secondary" onclick="smartFill('100g beef')">🥩 100g beef</button>
+<button class="secondary" onclick="smartFill('250ml milk')">🥛 250ml milk</button>
+<button class="secondary" onclick="smartFill('50g oats')">🥣 50g oats</button>
+<button class="secondary" onclick="smartFill('1 banana')">🍌 1 banana</button>
+</div></div>
 <div class="card"><h2>Log food</h2>
 <input id="foodName" placeholder="Food name">
 <div class="row"><input id="foodProtein" type="number" placeholder="Protein (g)"><input id="foodCalories" type="number" placeholder="Calories"></div>
@@ -129,6 +137,9 @@ if(d.date!==today()){d.foods=[];d.water=0;d.workout='';d.spent=0;d.date=today();
 function save(){localStorage.setItem(KEY,JSON.stringify(d));render();}
 function show(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.getElementById('n-'+id).classList.add('active');render();}
 function quickFood(n,p,c){d.foods.push({n,p,c});save();}
+const foodsDB={egg:{label:'Egg',p:6.3,c:78,a:['egg','eggs']},appam:{label:'Appam',p:2,c:120,a:['appam','appams']},chapathi:{label:'Chapathi',p:3,c:110,a:['chapathi','chapati','chappathi','chappati']},rice:{label:'Rice 100g',p:2.7,c:130,a:['rice']},chicken:{label:'Chicken 100g',p:27,c:165,a:['chicken']},beef:{label:'Beef 100g',p:26,c:250,a:['beef']},milk:{label:'Milk 250ml',p:8,c:150,a:['milk']},oats:{label:'Oats 50g',p:6.5,c:190,a:['oats','oat']},banana:{label:'Banana',p:1.3,c:105,a:['banana','bananas']},tea:{label:'Tea',p:1.5,c:50,a:['tea','chai']},shawarma:{label:'Chicken shawarma',p:30,c:500,a:['shawarma']},cutlet:{label:'Chicken cutlet',p:8,c:150,a:['cutlet']},biryani:{label:'Biryani',p:25,c:650,a:['biryani']}};
+function smartFill(t){document.getElementById('smartFood').value=t;}
+function smartAdd(){const raw=document.getElementById('smartFood').value.trim().toLowerCase();if(!raw)return;const parts=raw.split(/,| and /).map(x=>x.trim()).filter(Boolean),added=[],failed=[];for(const part of parts){let m=part.match(/^(\d+(?:\.\d+)?)\s*(kg|g|ml|l)?\s*(.+)$/i);if(!m){failed.push(part);continue}let qty=+m[1],unit=(m[2]||'').toLowerCase(),name=m[3],key=Object.keys(foodsDB).find(k=>foodsDB[k].a.some(a=>name.includes(a)));if(!key){failed.push(part);continue}if(unit==='kg'){qty*=1000;unit='g'}if(unit==='l'){qty*=1000;unit='ml'}let f=foodsDB[key],factor=1;if(unit==='g')factor=qty/100;else if(unit==='ml')factor=qty/250;else if(unit==='')factor=qty;else factor=qty;/* For count-based foods, qty is count. */if(unit==='g'&&key!=='chicken'&&key!=='beef'&&key!=='rice'&&key!=='oats')factor=qty/100;if(unit==='ml')factor=qty/250;if(unit===''&&['egg','appam','chapathi','banana'].includes(key))factor=qty;if(unit===''&&['milk','oats','chicken','beef','rice'].includes(key))factor=qty;let p=Math.round(f.p*factor*10)/10,c=Math.round(f.c*factor);d.foods.push({n:(qty%1===0?qty:qty.toFixed(1))+' '+f.label,p,c});added.push({p,c,n:f.label})}if(added.length){const p=added.reduce((a,x)=>a+x.p,0),c=added.reduce((a,x)=>a+x.c,0);document.getElementById('smartResult').innerHTML='<div class="result"><b>Added:</b> '+added.map(x=>x.n).join(', ')+'<br><b>Protein:</b> '+p.toFixed(1)+' g &nbsp; <b>Calories:</b> '+c+' kcal</div>';document.getElementById('smartFood').value='';save()}else document.getElementById('smartResult').innerHTML='<div class="result">Try: “2 eggs, 100g chicken”.</div>';if(failed.length)document.getElementById('smartResult').innerHTML+='<div class="small">Not recognized: '+failed.join(', ')+'</div>';}
 function addFood(){let n=document.getElementById('foodName').value.trim(),p=+document.getElementById('foodProtein').value||0,c=+document.getElementById('foodCalories').value||0;if(!n)return;d.foods.push({n,p,c});document.getElementById('foodName').value='';document.getElementById('foodProtein').value='';document.getElementById('foodCalories').value='';save();}
 function addWater(l){d.water=Math.min(20,Math.round((d.water+l)*100)/100);save();}
 function saveWeight(){let w=+document.getElementById('newWeight').value;if(w>0){d.weight=w;d.history.push({date:today(),weight:w});document.getElementById('newWeight').value='';save();}}
