@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1220">
+<meta name="theme-color" content="#090b09">
 <title>Fit Radhadevan</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -11,35 +11,39 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#eef1f6;color:#101828;font-family:Inter,Arial,sans-serif}
-.app{max-width:520px;margin:auto;min-height:100vh;background:#f7f8fb;padding-bottom:92px}
-.hero{background:linear-gradient(145deg,#0b1220,#1b2942);color:#fff;padding:25px 18px 20px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-85px;top:-85px;background:#ffffff0b}
+:root{color-scheme:dark;--bg:#090b09;--panel:#141714;--panel2:#191d18;--line:#282d27;--lime:#d6ff32;--white:#f5f7f1;--muted:#a0a69a;--dim:#747b70;--glow:#d6ff3226}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#26301d 0,transparent 43%),var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+.app{max-width:520px;margin:auto;min-height:100vh;background:linear-gradient(180deg,#10130f 0,#090b09 48%);padding-bottom:98px;overflow:hidden}
+.hero{color:var(--white);padding:22px 19px 15px;position:relative;overflow:hidden;background:transparent}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-165px;top:-140px;background:radial-gradient(circle,#d6ff3224 0,transparent 68%);pointer-events:none}
 .heroTop{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
-.brand{font-size:25px;font-weight:800;letter-spacing:-.5px}.sub{color:#aebbd0;font-size:13px;margin-top:5px}
-.avatar{width:44px;height:44px;border-radius:15px;background:#ffffff12;display:grid;place-items:center;font-size:23px;border:1px solid #ffffff18}
-.main{padding:14px 15px}.card{background:#fff;border-radius:22px;padding:16px;margin-bottom:13px;box-shadow:0 8px 28px #1018280b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.label{font-size:12px;color:#667085}.value{font-size:27px;font-weight:800;margin-top:4px;letter-spacing:-.7px}
-.goalCard{display:flex;align-items:center;gap:16px}.ring{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(#111827 var(--p),#e8ebf0 0)}
-.ringInner{width:68px;height:68px;border-radius:50%;background:white;display:grid;place-items:center;font-weight:800;font-size:15px}
-.goalText{flex:1}.goalText strong{font-size:20px}.goalText p{margin:5px 0 0;color:#667085;font-size:12px}
-.metric{position:relative;overflow:hidden}.metricIcon{font-size:19px}.metricTop{display:flex;justify-content:space-between;align-items:center}.metricProgress{height:7px;background:#edf0f4;border-radius:9px;margin-top:11px;overflow:hidden}.metricFill{height:100%;background:#111827;border-radius:9px}
-.quickTitle{display:flex;justify-content:space-between;align-items:center}.quickTitle span{font-size:12px;color:#667085}
-.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}.quick button,.pill{border:0;border-radius:14px;padding:12px 6px;background:#f0f2f6;color:#111827;font-weight:700;font-size:12px}
-.primary{background:#111827!important;color:white!important}.foodInput{display:flex;gap:8px}.foodInput input{flex:1;min-width:0}
-input,select{width:100%;padding:12px;border:1px solid #e1e5eb;border-radius:13px;background:#fafbfc;margin:6px 0 10px;font-size:14px;outline:none}
-button{border:0;border-radius:13px;padding:12px 14px;background:#111827;color:#fff;font-weight:700;cursor:pointer}
-h2{font-size:16px;margin:0}.muted{font-size:12px;color:#667085}.food{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #eef0f3;font-size:13px}.food:last-child{border-bottom:0}
-.actions{display:flex;gap:8px}.actions button{flex:1}.section{display:none}.section.active{display:block}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);height:76px;background:#fff;border-top:1px solid #e7e9ed;display:flex;justify-content:space-around;align-items:center;padding:7px 5px;z-index:5}
-.nav button{background:transparent;color:#98a2b3;padding:7px 9px;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center}.nav button b{font-size:19px;font-weight:500}.nav button.active{color:#111827}
-.badge{display:inline-block;background:#f0f2f6;border-radius:20px;padding:5px 8px;font-size:11px;color:#475467}
-.result{background:#f6f8fa;border-radius:14px;padding:11px;margin-top:10px;font-size:13px}
+.brand{font-size:21px;font-weight:850;letter-spacing:-.8px}.sub{color:var(--muted);font-size:12px;margin-top:5px}
+.avatar{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#20261e,#141713);display:grid;place-items:center;font-size:21px;border:1px solid #ffffff14;box-shadow:0 5px 18px #0008}
+.main{padding:9px 15px 14px}.card{background:linear-gradient(145deg,#191d18,#131613);border:1px solid #ffffff0a;border-radius:22px;padding:16px;margin-bottom:12px;box-shadow:0 12px 28px #0004;position:relative;overflow:hidden}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.label{font-size:10px;color:var(--muted);font-weight:750;letter-spacing:1.05px}.value{font-size:26px;font-weight:820;margin-top:6px;letter-spacing:-1px;color:var(--white)}.value small{font-size:13px;color:var(--muted);font-weight:650;letter-spacing:0}
+.goalCard{display:flex;align-items:center;gap:16px;background:linear-gradient(118deg,#d6ff32 0,#c8f42c 58%,#97bd1e 100%);color:#11150c;border:0;box-shadow:0 10px 30px #b8e72924}.goalCard:after{content:"";position:absolute;width:175px;height:175px;right:-74px;top:-84px;border:1px solid #fff6;border-radius:50%;box-shadow:0 0 42px #fff2,inset 0 0 28px #fff2}
+.ring{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(#11150c var(--p),#ffffff70 0);filter:drop-shadow(0 3px 10px #556d1528);position:relative;z-index:1}
+.ringInner{width:66px;height:66px;border-radius:50%;background:#c9f233;display:grid;place-items:center;font-weight:850;font-size:15px;color:#14180e}
+.goalText{flex:1;position:relative;z-index:1}.goalText .label{color:#38441d}.goalText strong{font-size:20px;letter-spacing:-.7px;color:#11150c}.goalText p{margin:5px 0 0;color:#39451f;font-size:12px;font-weight:600}
+.metric{position:relative;overflow:hidden}.metricIcon{font-size:18px;filter:saturate(.85)}.metricTop{display:flex;justify-content:space-between;align-items:center}.metricProgress{height:6px;background:#2b3029;border-radius:9px;margin-top:12px;overflow:hidden}.metricFill{height:100%;background:linear-gradient(90deg,#b9e923,var(--lime));border-radius:9px;box-shadow:0 0 12px #d6ff3266}
+.quickTitle{display:flex;justify-content:space-between;align-items:center}.quickTitle span{font-size:11px;color:var(--muted)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}.quick button,.pill{border:1px solid #ffffff0d;border-radius:13px;padding:11px 5px;background:#222720;color:var(--white);font-weight:700;font-size:11px;transition:transform .15s,border-color .15s}.quick button:active,button:active{transform:scale(.97)}
+.primary{background:var(--lime)!important;color:#12160b!important}.foodInput{display:flex;gap:8px}.foodInput input{flex:1;min-width:0}
+input,select{width:100%;padding:12px;border:1px solid #30362e;border-radius:13px;background:#10130f;color:var(--white);margin:6px 0 10px;font-size:14px;outline:none}input:focus,select:focus{border-color:#9dbc31;box-shadow:0 0 0 3px #d6ff3217}input::placeholder{color:#72796e}input[type=checkbox]{accent-color:var(--lime);width:auto;margin-right:8px}
+button{border:0;border-radius:13px;padding:12px 14px;background:var(--lime);color:#13170d;font-weight:800;cursor:pointer;box-shadow:0 5px 16px #d6ff3212}
+h2{font-size:15px;margin:0;letter-spacing:-.2px}.muted{font-size:12px;color:var(--muted)}.food{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #ffffff0c;font-size:12px;color:#e5e9df}.food:last-child{border-bottom:0}
+.actions{display:flex;gap:8px}.actions button{flex:1}.section{display:none}.section.active{display:block;animation:rise .22s ease-out}@keyframes rise{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);height:81px;background:#10130ff2;border-top:1px solid #ffffff12;backdrop-filter:blur(18px);display:flex;justify-content:space-around;align-items:center;padding:7px 5px max(7px,env(safe-area-inset-bottom));z-index:5}
+.nav button{background:transparent;color:#777e72;box-shadow:none;padding:7px 9px;font-size:10px;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:57px}.nav button b{font-size:19px;font-weight:500;line-height:1}.nav button.active{color:var(--lime)}.nav button.active b{filter:drop-shadow(0 0 7px #d6ff3266)}
+.badge{display:inline-block;background:#242920;border-radius:20px;padding:5px 8px;font-size:11px;color:#d7dfce}
+.result{background:#20271a;border:1px solid #d6ff3224;color:#eef5df;border-radius:14px;padding:11px;margin-top:10px;font-size:13px}
+@media(min-width:520px){.app{border-left:1px solid #ffffff09;border-right:1px solid #ffffff09}.nav{border-radius:18px 18px 0 0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="hero"><div class="heroTop"><div><div class="brand">Fit Radhadevan 💪</div><div class="sub">Your personal fitness dashboard</div></div><div class="avatar">🏋️</div></div></header>
+<header class="hero"><div class="heroTop"><div><div class="brand">Fit Radhadevan</div><div class="sub">YOUR PERSONAL FITNESS DASHBOARD</div></div><div class="avatar">🏋️</div></div></header>
 
 <main class="main">
 <section id="home" class="section active">
