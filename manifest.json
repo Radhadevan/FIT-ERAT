@@ -1,7 +1,7 @@
 {
   "name": "Fit Radhadevan",
   "short_name": "Fit Radhadevan",
-  "description": "Personal fitness dashboard for Radhadevan",
+  "description": "Personal fitness dashboard",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
