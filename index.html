@@ -3,160 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="theme-color" content="#0b1220">
 <title>Fit Radhadevan</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Fit Radhadevan">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#111827;font-family:Arial,sans-serif}
-.app{max-width:520px;margin:auto;min-height:100vh;background:#f9fafb;padding-bottom:82px}
-header{background:#111827;color:white;padding:24px 18px 20px;border-radius:0 0 24px 24px}
-h1{margin:0;font-size:26px}header p{margin:6px 0 0;color:#cbd5e1}
-main{padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:white;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px #0000000b}
-.big{font-size:28px;font-weight:700}.muted{color:#6b7280;font-size:13px}
-.bar{height:9px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:10px 0}.fill{height:100%;background:#111827;border-radius:10px}
-button{border:0;border-radius:12px;padding:11px 14px;background:#111827;color:white;font-weight:600;cursor:pointer}
-button.secondary{background:#eef2ff;color:#111827}.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-input,select{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:11px;margin:6px 0 10px;background:white}
-.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
-h2{font-size:18px;margin:4px 0 12px}.food{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:white;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:10px 4px;z-index:5}
-.nav button{background:transparent;color:#374151;font-size:12px;padding:8px}.nav button.active{color:#111827;font-weight:800}
-.section{display:none}.section.active{display:block}.badge{display:inline-block;padding:5px 9px;background:#eef2ff;border-radius:20px;font-size:12px}
-.check{display:flex;align-items:center;gap:8px;margin:8px 0}.check input{width:auto;margin:0}
-.small{font-size:12px;color:#6b7280}.danger{color:#b91c1c}.success{color:#166534}
-.result{background:#f8fafc;border-radius:12px;padding:12px;margin:8px 0}.small{font-size:12px;color:#6b7280}
+*{box-sizing:border-box}body{margin:0;background:#eef1f6;color:#101828;font-family:Inter,Arial,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#f7f8fb;padding-bottom:92px}
+.hero{background:linear-gradient(145deg,#0b1220,#1b2942);color:#fff;padding:25px 18px 20px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-85px;top:-85px;background:#ffffff0b}
+.heroTop{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.brand{font-size:25px;font-weight:800;letter-spacing:-.5px}.sub{color:#aebbd0;font-size:13px;margin-top:5px}
+.avatar{width:44px;height:44px;border-radius:15px;background:#ffffff12;display:grid;place-items:center;font-size:23px;border:1px solid #ffffff18}
+.main{padding:14px 15px}.card{background:#fff;border-radius:22px;padding:16px;margin-bottom:13px;box-shadow:0 8px 28px #1018280b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.label{font-size:12px;color:#667085}.value{font-size:27px;font-weight:800;margin-top:4px;letter-spacing:-.7px}
+.goalCard{display:flex;align-items:center;gap:16px}.ring{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(#111827 var(--p),#e8ebf0 0)}
+.ringInner{width:68px;height:68px;border-radius:50%;background:white;display:grid;place-items:center;font-weight:800;font-size:15px}
+.goalText{flex:1}.goalText strong{font-size:20px}.goalText p{margin:5px 0 0;color:#667085;font-size:12px}
+.metric{position:relative;overflow:hidden}.metricIcon{font-size:19px}.metricTop{display:flex;justify-content:space-between;align-items:center}.metricProgress{height:7px;background:#edf0f4;border-radius:9px;margin-top:11px;overflow:hidden}.metricFill{height:100%;background:#111827;border-radius:9px}
+.quickTitle{display:flex;justify-content:space-between;align-items:center}.quickTitle span{font-size:12px;color:#667085}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}.quick button,.pill{border:0;border-radius:14px;padding:12px 6px;background:#f0f2f6;color:#111827;font-weight:700;font-size:12px}
+.primary{background:#111827!important;color:white!important}.foodInput{display:flex;gap:8px}.foodInput input{flex:1;min-width:0}
+input,select{width:100%;padding:12px;border:1px solid #e1e5eb;border-radius:13px;background:#fafbfc;margin:6px 0 10px;font-size:14px;outline:none}
+button{border:0;border-radius:13px;padding:12px 14px;background:#111827;color:#fff;font-weight:700;cursor:pointer}
+h2{font-size:16px;margin:0}.muted{font-size:12px;color:#667085}.food{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #eef0f3;font-size:13px}.food:last-child{border-bottom:0}
+.actions{display:flex;gap:8px}.actions button{flex:1}.section{display:none}.section.active{display:block}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);height:76px;background:#fff;border-top:1px solid #e7e9ed;display:flex;justify-content:space-around;align-items:center;padding:7px 5px;z-index:5}
+.nav button{background:transparent;color:#98a2b3;padding:7px 9px;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center}.nav button b{font-size:19px;font-weight:500}.nav button.active{color:#111827}
+.badge{display:inline-block;background:#f0f2f6;border-radius:20px;padding:5px 8px;font-size:11px;color:#475467}
+.result{background:#f6f8fa;border-radius:14px;padding:11px;margin-top:10px;font-size:13px}
 </style>
 </head>
 <body>
 <div class="app">
-<header><h1>Fit Radhadevan 💪</h1><p>Your personal fitness dashboard</p></header>
-<main>
+<header class="hero"><div class="heroTop"><div><div class="brand">Fit Radhadevan 💪</div><div class="sub">Your personal fitness dashboard</div></div><div class="avatar">🏋️</div></div></header>
 
+<main class="main">
 <section id="home" class="section active">
+<div class="card goalCard">
+<div class="ring" id="ring"><div class="ringInner" id="ringText">0%</div></div>
+<div class="goalText"><span class="label">GOAL PROGRESS</span><br><strong><span id="weightHome">97</span> → 85 kg</strong><p id="remaining">12.0 kg remaining</p></div>
+</div>
+
 <div class="grid">
-<div class="card"><div class="muted">Current weight</div><div class="big" id="weightView">97 kg</div></div>
-<div class="card"><div class="muted">Goal</div><div class="big">85 kg</div></div>
+<div class="card metric"><div class="metricTop"><span class="label">PROTEIN</span><span class="metricIcon">🥩</span></div><div class="value"><span id="proteinView">0</span><small> g</small></div><div class="muted">Target 150 g</div><div class="metricProgress"><div class="metricFill" id="proteinBar"></div></div></div>
+<div class="card metric"><div class="metricTop"><span class="label">WATER</span><span class="metricIcon">💧</span></div><div class="value"><span id="waterView">0</span><small> L</small></div><div class="muted">Target 3 L</div><div class="metricProgress"><div class="metricFill" id="waterBar"></div></div></div>
 </div>
-<div class="card">
-<h2>Goal progress</h2><div class="bar"><div class="fill" id="progress"></div></div>
-<div class="muted" id="progressText"></div>
-</div>
-<div class="grid">
-<div class="card"><div class="muted">Protein</div><div class="big" id="proteinView">0 g</div><span class="badge">Target 150 g</span></div>
-<div class="card"><div class="muted">Water</div><div class="big" id="waterView">0 L</div><span class="badge">Target 3 L</span></div>
-</div>
-<div class="card">
-<h2>Quick water</h2>
-<div class="quick">
-<button onclick="addWater(.25)">+250 ml</button><button onclick="addWater(.5)">+500 ml</button>
-</div>
-</div>
-<div class="card">
-<h2>Today's workout</h2><p id="workoutText">No workout logged yet.</p>
-<button onclick="show('workout')">Open workout</button>
-</div>
+
+<div class="card metric"><div class="metricTop"><span class="label">TODAY'S CALORIES</span><span class="metricIcon">🔥</span></div><div class="value"><span id="calView">0</span><small> kcal</small></div><div class="muted">Planning target ~2,200 kcal</div></div>
+
+<div class="card"><div class="quickTitle"><h2>Quick water</h2><span>3 L target</span></div><div class="quick"><button onclick="addWater(.25)">+250 ml</button><button onclick="addWater(.5)">+500 ml</button><button onclick="addWater(1)">+1 L</button></div></div>
+
+<div class="card"><h2>Today's workout</h2><p class="muted" id="workoutText">No workout logged yet.</p><button onclick="show('workout')">Open workout</button></div>
 </section>
 
 <section id="food" class="section">
-<div class="card"><h2>Smart food logging</h2>
-<input id="smartFood" placeholder="Try: 2 eggs, 3 appam, 100g chicken">
-<button onclick="smartAdd()">Calculate & add</button>
+<div class="card"><h2>Smart food logging</h2><p class="muted">Type your meal naturally</p>
+<div class="foodInput"><input id="smartFood" placeholder="2 eggs, 3 appam, 100g chicken"><button onclick="smartAdd()">Add</button></div>
 <div id="smartResult"></div>
-<p class="small">Built-in estimates; actual portions and recipes can vary.</p>
 </div>
-<div class="card"><h2>Common foods</h2><div class="quick">
-<button class="secondary" onclick="smartFill('2 eggs')">🥚 2 eggs</button>
-<button class="secondary" onclick="smartFill('3 appam')">🥞 3 appam</button>
-<button class="secondary" onclick="smartFill('2 chapathi')">🫓 2 chapathi</button>
-<button class="secondary" onclick="smartFill('100g chicken')">🍗 100g chicken</button>
-<button class="secondary" onclick="smartFill('100g beef')">🥩 100g beef</button>
-<button class="secondary" onclick="smartFill('250ml milk')">🥛 250ml milk</button>
-<button class="secondary" onclick="smartFill('50g oats')">🥣 50g oats</button>
-<button class="secondary" onclick="smartFill('1 banana')">🍌 1 banana</button>
+<div class="card"><h2>Quick foods</h2><div class="quick">
+<button onclick="smartFill('2 eggs')">🥚 Eggs</button><button onclick="smartFill('100g chicken')">🍗 Chicken</button><button onclick="smartFill('3 appam')">🥞 Appam</button>
+<button onclick="smartFill('2 chapathi')">🫓 Chapathi</button><button onclick="smartFill('250ml milk')">🥛 Milk</button><button onclick="smartFill('50g oats')">🥣 Oats</button>
 </div></div>
-<div class="card"><h2>Log food</h2>
-<input id="foodName" placeholder="Food name">
-<div class="row"><input id="foodProtein" type="number" placeholder="Protein (g)"><input id="foodCalories" type="number" placeholder="Calories"></div>
-<button onclick="addFood()">Add food</button>
-</div>
-<div class="card"><h2>Today's food</h2><div id="foodList"></div>
-<div class="food"><b>Total</b><b id="foodTotal"></b></div></div>
+<div class="card"><h2>Today's food</h2><div id="foodList"></div><div class="food"><b>Total</b><b id="foodTotal"></b></div></div>
 </section>
 
 <section id="workout" class="section">
 <div class="card"><h2>Today's workout</h2>
-<select id="workoutSelect">
-<option>Upper Body</option><option>Push</option><option>Pull</option><option>Full Body</option><option>Cardio / Badminton</option><option>Rest / Recovery</option>
-</select>
-<input id="workoutMinutes" type="number" placeholder="Minutes">
-<button onclick="saveWorkout()">Save workout</button>
-<p id="workoutSaved"></p>
+<select id="workoutSelect"><option>Upper Body</option><option>Push</option><option>Pull</option><option>Full Body</option><option>Cardio / Badminton</option><option>Rest / Recovery</option></select>
+<input id="workoutMinutes" type="number" placeholder="Minutes"><button onclick="saveWorkout()">Save workout</button><p id="workoutSaved" class="muted"></p>
 </div>
-<div class="card"><h2>Workout checklist</h2>
-<div class="check"><input type="checkbox" id="warmup"> <label for="warmup">Warm-up completed</label></div>
-<div class="check"><input type="checkbox" id="cooldown"> <label for="cooldown">Cool-down completed</label></div>
-<p class="small">Choose exercises that feel comfortable and stop any movement that causes pain.</p>
-</div>
+<div class="card"><h2>Workout checklist</h2><p><label><input type="checkbox" id="warmup"> Warm-up completed</label></p><p><label><input type="checkbox" id="cooldown"> Cool-down completed</label></p><p class="muted">Stop any movement that causes pain.</p></div>
 </section>
 
 <section id="progressTab" class="section">
-<div class="card"><h2>Update weight</h2>
-<input id="newWeight" type="number" step="0.1" placeholder="Current weight in kg">
-<button onclick="saveWeight()">Save weight</button>
-</div>
-<div class="card"><h2>Progress history</h2><div id="history"></div></div>
+<div class="card"><h2>Update weight</h2><input id="newWeight" type="number" step=".1" placeholder="Current weight in kg"><button onclick="saveWeight()">Save weight</button></div>
+<div class="card"><h2>Weight history</h2><div id="history"></div></div>
 </section>
 
 <section id="budget" class="section">
-<div class="card"><h2>Food budget</h2><p>Daily target: <b>₹250</b></p>
-<input id="spent" type="number" placeholder="Today's food spending">
-<button onclick="saveSpent()">Save spending</button><p id="spentResult"></p>
-</div>
+<div class="card"><h2>Daily food budget</h2><div class="value">₹250</div><p class="muted">Today's spending</p><input id="spent" type="number" placeholder="Enter amount spent"><button onclick="saveSpent()">Save spending</button><p id="spentResult"></p></div>
 </section>
 </main>
 
-<div class="nav">
-<button onclick="show('home')" id="n-home">Home</button><button onclick="show('food')" id="n-food">Food</button>
-<button onclick="show('workout')" id="n-workout">Workout</button><button onclick="show('progressTab')" id="n-progressTab">Progress</button>
-<button onclick="show('budget')" id="n-budget">Budget</button>
-</div>
+<nav class="nav">
+<button onclick="show('home')" id="n-home" class="active"><b>⌂</b>Home</button>
+<button onclick="show('food')" id="n-food"><b>🍽</b>Food</button>
+<button onclick="show('workout')" id="n-workout"><b>🏋</b>Workout</button>
+<button onclick="show('progressTab')" id="n-progressTab"><b>↗</b>Progress</button>
+<button onclick="show('budget')" id="n-budget"><b>₹</b>Budget</button>
+</nav>
 </div>
 
 <script>
-const KEY='fitRadhadevanV2';
-const today=()=>new Date().toLocaleDateString('en-IN');
-let d=JSON.parse(localStorage.getItem(KEY)||'null');
-if(!d)d={weight:97,foods:[],history:[{date:today(),weight:97}],water:0,workout:'',spent:0,date:today()};
-if(d.date!==today()){d.foods=[];d.water=0;d.workout='';d.spent=0;d.date=today();save();}
-function save(){localStorage.setItem(KEY,JSON.stringify(d));render();}
-function show(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.getElementById('n-'+id).classList.add('active');render();}
-function quickFood(n,p,c){d.foods.push({n,p,c});save();}
-const foodsDB={egg:{label:'Egg',p:6.3,c:78,a:['egg','eggs']},appam:{label:'Appam',p:2,c:120,a:['appam','appams']},chapathi:{label:'Chapathi',p:3,c:110,a:['chapathi','chapati','chappathi','chappati']},rice:{label:'Rice 100g',p:2.7,c:130,a:['rice']},chicken:{label:'Chicken 100g',p:27,c:165,a:['chicken']},beef:{label:'Beef 100g',p:26,c:250,a:['beef']},milk:{label:'Milk 250ml',p:8,c:150,a:['milk']},oats:{label:'Oats 50g',p:6.5,c:190,a:['oats','oat']},banana:{label:'Banana',p:1.3,c:105,a:['banana','bananas']},tea:{label:'Tea',p:1.5,c:50,a:['tea','chai']},shawarma:{label:'Chicken shawarma',p:30,c:500,a:['shawarma']},cutlet:{label:'Chicken cutlet',p:8,c:150,a:['cutlet']},biryani:{label:'Biryani',p:25,c:650,a:['biryani']}};
-function smartFill(t){document.getElementById('smartFood').value=t;}
-function smartAdd(){const raw=document.getElementById('smartFood').value.trim().toLowerCase();if(!raw)return;const parts=raw.split(/,| and /).map(x=>x.trim()).filter(Boolean),added=[],failed=[];for(const part of parts){let m=part.match(/^(\d+(?:\.\d+)?)\s*(kg|g|ml|l)?\s*(.+)$/i);if(!m){failed.push(part);continue}let qty=+m[1],unit=(m[2]||'').toLowerCase(),name=m[3],key=Object.keys(foodsDB).find(k=>foodsDB[k].a.some(a=>name.includes(a)));if(!key){failed.push(part);continue}if(unit==='kg'){qty*=1000;unit='g'}if(unit==='l'){qty*=1000;unit='ml'}let f=foodsDB[key],factor=1;if(unit==='g')factor=qty/100;else if(unit==='ml')factor=qty/250;else if(unit==='')factor=qty;else factor=qty;/* For count-based foods, qty is count. */if(unit==='g'&&key!=='chicken'&&key!=='beef'&&key!=='rice'&&key!=='oats')factor=qty/100;if(unit==='ml')factor=qty/250;if(unit===''&&['egg','appam','chapathi','banana'].includes(key))factor=qty;if(unit===''&&['milk','oats','chicken','beef','rice'].includes(key))factor=qty;let p=Math.round(f.p*factor*10)/10,c=Math.round(f.c*factor);d.foods.push({n:(qty%1===0?qty:qty.toFixed(1))+' '+f.label,p,c});added.push({p,c,n:f.label})}if(added.length){const p=added.reduce((a,x)=>a+x.p,0),c=added.reduce((a,x)=>a+x.c,0);document.getElementById('smartResult').innerHTML='<div class="result"><b>Added:</b> '+added.map(x=>x.n).join(', ')+'<br><b>Protein:</b> '+p.toFixed(1)+' g &nbsp; <b>Calories:</b> '+c+' kcal</div>';document.getElementById('smartFood').value='';save()}else document.getElementById('smartResult').innerHTML='<div class="result">Try: “2 eggs, 100g chicken”.</div>';if(failed.length)document.getElementById('smartResult').innerHTML+='<div class="small">Not recognized: '+failed.join(', ')+'</div>';}
-function addFood(){let n=document.getElementById('foodName').value.trim(),p=+document.getElementById('foodProtein').value||0,c=+document.getElementById('foodCalories').value||0;if(!n)return;d.foods.push({n,p,c});document.getElementById('foodName').value='';document.getElementById('foodProtein').value='';document.getElementById('foodCalories').value='';save();}
-function addWater(l){d.water=Math.min(20,Math.round((d.water+l)*100)/100);save();}
-function saveWeight(){let w=+document.getElementById('newWeight').value;if(w>0){d.weight=w;d.history.push({date:today(),weight:w});document.getElementById('newWeight').value='';save();}}
-function saveWorkout(){d.workout=document.getElementById('workoutSelect').value+' • '+(+document.getElementById('workoutMinutes').value||0)+' min';save();document.getElementById('workoutSaved').textContent='Saved ✓';}
-function saveSpent(){d.spent=+document.getElementById('spent').value||0;save();}
+const KEY='fitRadhadevanV4', today=()=>new Date().toLocaleDateString('en-IN');
+const DB={egg:{p:6.3,c:78,a:['egg','eggs']},appam:{p:2,c:120,a:['appam','appams']},chapathi:{p:3,c:110,a:['chapathi','chapati','chappathi','chappati']},chicken:{p:27,c:165,a:['chicken']},beef:{p:26,c:250,a:['beef']},milk:{p:8,c:150,a:['milk']},oats:{p:6.5,c:190,a:['oats','oat']}};
+let d=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('fitRadhadevanV3')||localStorage.getItem('fitRadhadevanV2')||localStorage.getItem('fitRadhadevan')||'null')||{weight:97,foods:[],history:[{date:today(),weight:97}],water:0,workout:'',spent:0,date:today()};
+if(d.date!==today()){d.foods=[];d.water=0;d.workout='';d.spent=0;d.date=today();save()}
+function save(){localStorage.setItem(KEY,JSON.stringify(d));render()}
+function show(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.getElementById('n-'+id).classList.add('active');render()}
+function addWater(v){d.water=Math.round((d.water+v)*100)/100;save()}
+function smartFill(v){document.getElementById('smartFood').value=v}
+function smartAdd(){
+let raw=document.getElementById('smartFood').value.toLowerCase().trim();if(!raw)return;
+let parts=raw.split(/,| and /).map(x=>x.trim()).filter(Boolean),added=[];
+parts.forEach(part=>{let m=part.match(/(\d+(?:\.\d+)?)\s*(kg|g|ml)?\s*(.+)/);if(!m)return;let q=parseFloat(m[1]),u=m[2]||'',name=m[3];let key=Object.keys(DB).find(k=>DB[k].a.some(a=>name.includes(a)));if(!key)return;let f=DB[key],factor=q;if(u==='g')factor=q/100;if(u==='kg')factor=q*10;if(u==='ml')factor=q/250;if(!u && key==='egg')factor=q;if(!u && key==='appam')factor=q;if(!u && key==='chapathi')factor=q;let p=Math.round(f.p*factor*10)/10,c=Math.round(f.c*factor);d.foods.push({n:q+' '+key,p,c});added.push({p,c})});
+if(added.length){let p=added.reduce((a,x)=>a+x.p,0),c=added.reduce((a,x)=>a+x.c,0);document.getElementById('smartResult').innerHTML=`<div class="result">Added ✓ &nbsp; <b>${p.toFixed(1)} g protein</b> • <b>${c} kcal</b></div>`;document.getElementById('smartFood').value='';save()}else document.getElementById('smartResult').innerHTML='<div class="result">Try: 2 eggs, 3 appam, 100g chicken</div>'
+}
+function saveWeight(){let w=+document.getElementById('newWeight').value;if(w>0){d.weight=w;d.history.push({date:today(),weight:w});document.getElementById('newWeight').value='';save()}}
+function saveWorkout(){d.workout=document.getElementById('workoutSelect').value+' • '+(+document.getElementById('workoutMinutes').value||0)+' min';save();document.getElementById('workoutSaved').textContent='Saved ✓'}
+function saveSpent(){d.spent=+document.getElementById('spent').value||0;save()}
 function render(){
-let p=d.foods.reduce((a,x)=>a+x.p,0),cal=d.foods.reduce((a,x)=>a+x.c,0);
-let progress=Math.max(0,Math.min(100,(100-d.weight)/15*100));
-document.getElementById('weightView').textContent=d.weight+' kg';document.getElementById('proteinView').textContent=p+' g';document.getElementById('waterView').textContent=d.water+' L';
-document.getElementById('progress').style.width=progress+'%';document.getElementById('progressText').textContent=Math.max(0,(d.weight-85)).toFixed(1)+' kg remaining to 85 kg';
-document.getElementById('workoutText').textContent=d.workout||'No workout logged yet.';
+let p=d.foods.reduce((a,x)=>a+x.p,0),c=d.foods.reduce((a,x)=>a+x.c,0),gp=Math.max(0,Math.min(100,(100-d.weight)/15*100));
+document.getElementById('weightHome').textContent=d.weight;document.getElementById('remaining').textContent=Math.max(0,d.weight-85).toFixed(1)+' kg remaining';document.getElementById('ring').style.setProperty('--p',gp+'%');document.getElementById('ringText').textContent=Math.round(gp)+'%';
+document.getElementById('proteinView').textContent=Math.round(p);document.getElementById('waterView').textContent=d.water;document.getElementById('calView').textContent=c;
+document.getElementById('proteinBar').style.width=Math.min(100,p/150*100)+'%';document.getElementById('waterBar').style.width=Math.min(100,d.water/3*100)+'%';document.getElementById('workoutText').textContent=d.workout||'No workout logged yet.';
 document.getElementById('foodList').innerHTML=d.foods.length?d.foods.map(x=>`<div class="food"><span>${x.n}</span><span>${x.p}g • ${x.c} kcal</span></div>`).join(''):'No food logged yet.';
-document.getElementById('foodTotal').textContent=p+' g • '+cal+' kcal';
-document.getElementById('history').innerHTML=d.history.slice().reverse().map(x=>`<div class="food"><span>${x.date}</span><b>${x.weight} kg</b></div>`).join('');
+document.getElementById('foodTotal').textContent=Math.round(p)+' g • '+c+' kcal';document.getElementById('history').innerHTML=d.history.slice().reverse().map(x=>`<div class="food"><span>${x.date}</span><b>${x.weight} kg</b></div>`).join('');
 document.getElementById('spentResult').textContent=d.spent?`₹${d.spent} spent • ₹${250-d.spent} ${250-d.spent>=0?'remaining':'over budget'}`:'';
 }
-render();show('home');
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.error));
+render();show('home');if('serviceWorker'in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 </script>
 </body></html>
