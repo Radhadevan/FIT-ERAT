@@ -279,7 +279,7 @@ body{background:radial-gradient(circle at 50% -10%,#34441f 0,transparent 34%),ra
 <main class="main">
 <section id="home" class="section active">
   <div class="todayHeader reveal d1">
-    <div><div class="eyebrow">TODAY · <span id="todayDate">29 SEP</span></div><h1>Daily overview</h1><p>Build your day, one completed target at a time.</p></div>
+    <div><div class="eyebrow">TODAY · <span id="todayDate"></span></div><h1>Daily overview</h1><p>Build your day, one completed target at a time.</p></div>
     <div class="todayStatus"><span class="statusDot"></span><span id="dayState">IN PROGRESS</span></div>
   </div>
 
@@ -435,7 +435,9 @@ const INITIAL={weight:97,goalWeight:85,proteinTarget:150,waterTarget:3,calorieTa
 let d=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('fitRadhadevanV5')||localStorage.getItem('fitRadhadevanV4')||localStorage.getItem('fitRadhadevanV3')||localStorage.getItem('fitRadhadevanV2')||localStorage.getItem('fitRadhadevan')||'null')||JSON.parse(JSON.stringify(INITIAL));
 d.foods=d.foods||[];d.customFoods=d.customFoods||[];d.history=d.history||[{date:today(),weight:d.weight||97}];d.goalWeight=Number(d.goalWeight)||85;d.proteinTarget=Number(d.proteinTarget)||150;d.waterTarget=Number(d.waterTarget)||3;d.calorieTarget=Number(d.calorieTarget)||2200;d.budgetTarget=Number.isFinite(Number(d.budgetTarget))?Number(d.budgetTarget):250;d.xp=Number(d.xp)||0;d.rewardDays=d.rewardDays||{};d.workoutHistory=d.workoutHistory||{};
 function ensureTodayState(){const t=today();if(d.date!==t){d.foods=[];d.water=0;d.workout='';d.spent=0;d.date=t;d.rewardDays[t]=d.rewardDays[t]||{};localStorage.setItem(KEY,JSON.stringify(d));return true}return false}
+function refreshForDateChange(){const changed=ensureTodayState();const el=document.getElementById('todayDate');if(el)el.textContent=todayLabel();if(changed){render();if(typeof renderV9==='function')renderV9();if(cloudUser && typeof cloudLoad==='function')setTimeout(()=>cloudLoad(),0);}}
 ensureTodayState();
+
 let calendarCursor=new Date();
 
 function cloneInitial(){return JSON.parse(JSON.stringify({...INITIAL,date:today(),history:[{date:today(),weight:97}]}))}
@@ -556,7 +558,7 @@ function updateDailyAnalytics(){
 }
 
 function toast(msg){document.body.classList.remove('uiPulse');void document.body.offsetWidth;document.body.classList.add('uiPulse');const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove('show'),1700)}
-render();
+refreshForDateChange();
 
 /* ===== v9 Activity + XP + streak + swipe ===== */
 const V9KEY='deqxFitV9';
@@ -688,11 +690,15 @@ window.addEventListener('online',()=>{if(cloudUser)cloudSyncNow()});
 const _saveCloud=window.save;window.save=function(doRender=true){_saveCloud(doRender);if(cloudUser)localDirty=true;cloudQueueSync()};
 const _saveV9Cloud=window.saveV9;window.saveV9=function(){_saveV9Cloud();if(cloudUser)localDirty=true;cloudQueueSync()};
 const _resetCloud=window.resetApp;window.resetApp=function(){_resetCloud();if(cloudUser)cloudQueueSync()};
+window.addEventListener('focus',refreshForDateChange);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshForDateChange()});
+setInterval(refreshForDateChange,30000);
+
 </script>
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js?v=14')
+  navigator.serviceWorker.register('./service-worker.js?v=15')
     .then(reg => {
       if (reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'});
       reg.update();
